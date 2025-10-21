@@ -31,3 +31,6 @@ Seguido de
 Depois disso foi necessário brigar com o copilot por um tempo, pois ele não seguiu os padões do projeto, acessou varáiveis diretamente do process.env, etc.
 
 > Now, I need to implement the image upload to the products routes. The create product method should be able to optionally receive an image when creating. The product entity should have an imageUrl column in the database, which should then be used to access the image from the browser. Make both of these changes to the product
+
+### Criando páginas de login
+> We are using nextjs with page router. I want to setup the login and sign up for the application. Create both routes, they should use the existing layout and render a form that takes email and password for login and also a name for signup. Do not handle the form submission just yet, only scaffold the forms and pages
