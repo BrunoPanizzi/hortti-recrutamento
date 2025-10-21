@@ -1,33 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+
 import { Product } from './product.entity';
+import { CreateProductDTO } from './product.dto';
+import { ProductRepository } from './product.repository';
 
 @Injectable()
 export class ProductService {
-  constructor(@InjectRepository(Product) private repo: Repository<Product>) {}
+  constructor(private productRepository: ProductRepository) { }
 
-  create(data: Partial<Product>) {
-    const p = this.repo.create(data);
-    return this.repo.save(p);
+  create(data: CreateProductDTO) {
+    return this.productRepository.create(data);
   }
 
   findAll(page = 1, limit = 10, search?: string, category?: string) {
-    const qb = this.repo.createQueryBuilder('p');
-    if (search) qb.andWhere('p.name ILIKE :search', { search: `%${search}%` });
-    if (category) qb.andWhere('p.category = :category', { category });
-    return qb.skip((page - 1) * limit).take(limit).getMany();
+    return this.productRepository.findAll(page, limit, search, category);
   }
 
   findOne(id: number) {
-    return this.repo.findOneBy({ id });
+    return this.productRepository.findOne(id);
   }
 
   update(id: number, data: Partial<Product>) {
-    return this.repo.update(id, data);
+    return this.productRepository.update(id, data);
   }
 
   remove(id: number) {
-    return this.repo.delete(id);
+    return this.productRepository.remove(id);
   }
 }
