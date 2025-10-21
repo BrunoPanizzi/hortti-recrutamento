@@ -23,9 +23,10 @@ export class StorageRepository implements OnModuleInit {
       accessKeyId: this.configService.get<string>('S3_ACCESS_KEY_ID')!,
       secretAccessKey: this.configService.get<string>('S3_SECRET_ACCESS_KEY')!,
       bucketName: this.configService.get<string>('S3_BUCKET_NAME')!,
-      forcePathStyle: this.configService.get<string>('S3_FORCE_PATH_STYLE') === 'true',
+      forcePathStyle:
+        this.configService.get<string>('S3_FORCE_PATH_STYLE') === 'true',
     };
-    
+
     this.s3Client = new S3Client({
       endpoint: this.config.endpoint,
       region: this.config.region,
@@ -53,7 +54,9 @@ export class StorageRepository implements OnModuleInit {
           await this.s3Client.send(
             new CreateBucketCommand({ Bucket: this.config.bucketName }),
           );
-          this.logger.log(`Bucket "${this.config.bucketName}" created successfully`);
+          this.logger.log(
+            `Bucket "${this.config.bucketName}" created successfully`,
+          );
         } catch (createError) {
           this.logger.error(`Failed to create bucket: ${createError.message}`);
           throw createError;

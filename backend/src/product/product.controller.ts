@@ -1,4 +1,16 @@
-import { Controller, Get, Post, Body, Param, Query, Put, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Query,
+  Put,
+  Delete,
+  UseInterceptors,
+  UploadedFile,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 import { ProductService } from './product.service';
 
@@ -6,15 +18,24 @@ import { CreateProductDTO } from './product.dto';
 
 @Controller('products')
 export class ProductController {
-  constructor(private service: ProductService) { }
+  constructor(private service: ProductService) {}
 
   @Post()
-  create(@Body() body: CreateProductDTO) {
-    return this.service.create(body);
+  @UseInterceptors(FileInterceptor('image'))
+  create(
+    @Body() body: CreateProductDTO,
+    @UploadedFile() image?: Express.Multer.File,
+  ) {
+    return this.service.create(body, image);
   }
 
   @Get()
-  findAll(@Query('page') page = '1', @Query('limit') limit = '10', @Query('search') search?: string, @Query('category') category?: string) {
+  findAll(
+    @Query('page') page = '1',
+    @Query('limit') limit = '10',
+    @Query('search') search?: string,
+    @Query('category') category?: string,
+  ) {
     return this.service.findAll(Number(page), Number(limit), search, category);
   }
 
@@ -24,8 +45,13 @@ export class ProductController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() body: any) {
-    return this.service.update(Number(id), body);
+  @UseInterceptors(FileInterceptor('image'))
+  update(
+    @Param('id') id: string,
+    @Body() body: any,
+    @UploadedFile() image?: Express.Multer.File,
+  ) {
+    return this.service.update(Number(id), body, image);
   }
 
   @Delete(':id')

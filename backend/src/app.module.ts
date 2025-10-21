@@ -49,4 +49,4 @@ import { StorageModule } from './storage/storage.module';
     StorageModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}

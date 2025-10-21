@@ -1,4 +1,11 @@
-import { IsString, IsNotEmpty, IsNumber, IsPositive, IsOptional, Min } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsNumber,
+  IsPositive,
+  IsOptional,
+  Min,
+} from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 
 export class CreateProductDTO {
@@ -29,4 +36,4 @@ export class CreateProductDTO {
   weight: number;
 }
 
-export class UpdateProductDTO extends PartialType(CreateProductDTO) { }
+export class UpdateProductDTO extends PartialType(CreateProductDTO) {}

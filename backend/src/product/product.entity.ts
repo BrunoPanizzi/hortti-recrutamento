@@ -22,4 +22,7 @@ export class Product {
 
   @Column({ nullable: true })
   weight: number;
+
+  @Column({ nullable: true })
+  imageKey: string;
 }
