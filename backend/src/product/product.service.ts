@@ -23,12 +23,21 @@ export class ProductService {
     return this.addImageUrl(product);
   }
 
-  async findAll(page = 1, limit = 10, search?: string, category?: string) {
+  async findAll(
+    page = 1,
+    limit = 10,
+    search?: string,
+    category?: string,
+    sortBy?: 'name' | 'price',
+    sortOrder?: 'asc' | 'desc',
+  ) {
     const products = await this.productRepository.findAll(
       page,
       limit,
       search,
       category,
+      sortBy,
+      sortOrder,
     );
     return products.map((product) => this.addImageUrl(product));
   }

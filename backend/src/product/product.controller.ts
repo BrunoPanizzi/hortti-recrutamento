@@ -35,8 +35,17 @@ export class ProductController {
     @Query('limit') limit = '10',
     @Query('search') search?: string,
     @Query('category') category?: string,
+    @Query('sortBy') sortBy?: 'name' | 'price',
+    @Query('sortOrder') sortOrder?: 'asc' | 'desc',
   ) {
-    return this.service.findAll(Number(page), Number(limit), search, category);
+    return this.service.findAll(
+      Number(page),
+      Number(limit),
+      search,
+      category,
+      sortBy,
+      sortOrder,
+    );
   }
 
   @Get(':id')
