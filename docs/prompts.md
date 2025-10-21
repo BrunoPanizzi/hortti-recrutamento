@@ -34,3 +34,7 @@ Depois disso foi necessário brigar com o copilot por um tempo, pois ele não se
 
 ### Criando páginas de login
 > We are using nextjs with page router. I want to setup the login and sign up for the application. Create both routes, they should use the existing layout and render a form that takes email and password for login and also a name for signup. Do not handle the form submission just yet, only scaffold the forms and pages
+
+
+### Redirecionando para o login
+> on the home page of the frontend, there should be a check to see if the user is logged in and if the session is valid (use the 'me' method), if there is no valid session, redirect the user to /login
