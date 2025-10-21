@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { ProductModule } from './product/product.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -19,6 +20,8 @@ import { ProductModule } from './product/product.module';
         DB_USER: Joi.string().required(),
         DB_PASS: Joi.string().required(),
         DB_NAME: Joi.string().required(),
+        JWT_SECRET: Joi.string().required(),
+        JWT_EXPIRES_IN: Joi.string().default('12h'),
       }),
     }),
     TypeOrmModule.forRootAsync({
@@ -35,6 +38,7 @@ import { ProductModule } from './product/product.module';
       }),
     }),
     ProductModule,
+    AuthModule,
   ],
 })
 export class AppModule { }

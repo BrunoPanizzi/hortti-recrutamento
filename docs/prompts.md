@@ -13,3 +13,12 @@ O copilot conseguiu separar corretamente as dependências e atualizar o service,
 
 ## Atualizações no `user.service.ts`
 > add validations to see if the user exists before updating and deleting, also check if a user with the same email already exists before creating a new one. Return the correct http errors
+
+
+## Começar o authentication module
+
+> start the authentication module. It should follow the same pattern as the user and product modules, but with two routes: /sign-in and /sign-up. The authentication module shoult import the user service and use it for all the CRUD operations needed for authentication
+
+Seguido de
+
+> instead of returning the user from the auth service, it should use the nest JWT service to sign a token with the user information in it. Refactor the code to use the JWT
