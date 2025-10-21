@@ -22,3 +22,8 @@ O copilot conseguiu separar corretamente as dependências e atualizar o service,
 Seguido de
 
 > instead of returning the user from the auth service, it should use the nest JWT service to sign a token with the user information in it. Refactor the code to use the JWT
+
+## Upload de images
+> I need to handle images uploads for the products entity in the backend, thinking about a clean and organized project structure, how should I handle this feature? I thought about creating a ImageService/ImageRepository, and use a S3 compatible backend to make it more robust, what do you think?
+
+>Yes, create the storage module. Install the necessary dependencies for it and update the docker-compose file in the root of the project to add a object storage. Don't update the produts module just yet.
