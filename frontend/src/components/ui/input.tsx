@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "~/lib/utils"
+import { cn } from "~/lib/utils";
 
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
@@ -12,11 +12,11 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
         "hover:bg-zinc-600 hover:border-zinc-500",
         "focus-visible:bg-zinc-600 focus-visible:border-zinc-500 focus-visible:ring-zinc-500/50 focus-visible:ring-[3px]",
         "aria-invalid:ring-red-500/20 aria-invalid:border-red-500",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
-export { Input }
+export { Input };
