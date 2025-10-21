@@ -26,6 +26,7 @@ export class StorageRepository implements OnModuleInit {
       bucketName: this.configService.get<string>('S3_BUCKET_NAME')!,
       forcePathStyle:
         this.configService.get<string>('S3_FORCE_PATH_STYLE') === 'true',
+      publicUrl: this.configService.get<string>('S3_PUBLIC_URL'),
     };
 
     this.s3Client = new S3Client({
@@ -142,7 +143,7 @@ export class StorageRepository implements OnModuleInit {
   }
 
   getFileUrl(key: string): string {
-    const endpoint = this.config.endpoint.replace(/\/$/, '');
+    const endpoint = (this.config.publicUrl || this.config.endpoint).replace(/\/$/, '');
     return `${endpoint}/${this.config.bucketName}/${key}`;
   }
 

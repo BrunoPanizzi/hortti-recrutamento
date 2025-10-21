@@ -5,4 +5,5 @@ export interface StorageConfig {
   secretAccessKey: string;
   bucketName: string;
   forcePathStyle: boolean;
+  publicUrl?: string;
 }
