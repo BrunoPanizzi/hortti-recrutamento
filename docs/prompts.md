@@ -38,3 +38,6 @@ Depois disso foi necessário brigar com o copilot por um tempo, pois ele não se
 
 ### Redirecionando para o login
 > on the home page of the frontend, there should be a check to see if the user is logged in and if the session is valid (use the 'me' method), if there is no valid session, redirect the user to /login
+
+### Criação de produtos
+> add a "+" button to the frontend to create a new product. The user should be redirected to a /novo_produto page, with a form with all the fields needed. Create the useCreateProduct hook, which should be called in the new product page. The form should be cleaned after a product is created

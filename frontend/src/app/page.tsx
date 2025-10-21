@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useAuth } from "~/hooks/useAuth";
 import { useProducts } from "~/hooks/useProducts";
 import { Product } from "~/services/client/ProductService";
+import { Button } from "~/components/ui/button";
 
 export default function Home() {
   const { user, isLoading } = useAuth("/login");
@@ -21,8 +23,18 @@ export default function Home() {
 
   return (
     <div className="py-8">
-      <h1 className="text-2xl font-bold mb-4">Bem-vindo, {user.name}!</h1>
-      <p className="text-zinc-400">Seus produtos:</p>
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-2xl font-bold mb-1">Bem-vindo, {user.name}!</h1>
+          <p className="text-zinc-400">Seus produtos:</p>
+        </div>
+        <Link href="/novo-produto">
+          <Button>
+            <span className="text-xl mr-2">+</span>
+            Novo Produto
+          </Button>
+        </Link>
+      </div>
 
       <ProductsList userId={user.id} />
     </div>

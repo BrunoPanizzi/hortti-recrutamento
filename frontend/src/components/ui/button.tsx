@@ -13,7 +13,7 @@ const buttonVariants = cva(
         destructive:
           "focus-visible:ring-red-500/40 bg-red-500/60 hover:bg-red-500/70 focus-visible:ring-red-500/20",
         outline:
-          "border shadow-xs bg-zinc-200/30 border-zinc-200 hover:bg-zinc-200/50 text-zinc-900",
+          "border shadow-xs bg-transparent border-zinc-200 hover:bg-zinc-700/50 hover:text-zinc-100 text-zinc-300",
         secondary: "bg-zinc-400 text-zinc-900 hover:bg-zinc-400/80",
       },
       size: {
