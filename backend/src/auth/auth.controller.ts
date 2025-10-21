@@ -8,22 +8,22 @@ import type { RequestWithUser } from './types';
 
 @Controller()
 export class AuthController {
-    constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {}
 
-    @Post('sign-up')
-    signUp(@Body() body: SignUpDto) {
-        return this.authService.signUp(body);
-    }
+  @Post('sign-up')
+  signUp(@Body() body: SignUpDto) {
+    return this.authService.signUp(body);
+  }
 
-    @Post('sign-in')
-    signIn(@Body() body: SignInDto) {
-        return this.authService.signIn(body);
-    }
+  @Post('sign-in')
+  signIn(@Body() body: SignInDto) {
+    return this.authService.signIn(body);
+  }
 
-    @UseGuards(AuthGuard)
-    @Get('me')
-    async me(@Req() req: RequestWithUser) {
-        const user = req.user;
-        return this.authService.me(user.sub);
-    }
+  @UseGuards(AuthGuard)
+  @Get('me')
+  async me(@Req() req: RequestWithUser) {
+    const user = req.user;
+    return this.authService.me(user.sub);
+  }
 }

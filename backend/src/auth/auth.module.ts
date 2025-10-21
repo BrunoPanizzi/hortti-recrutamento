@@ -8,27 +8,27 @@ import { UserModule } from '../user/user.module';
 import { AuthGuard } from './auth.guard';
 
 @Module({
-    imports: [
-        UserModule,
-        ConfigModule,
-        JwtModule.registerAsync({
-            imports: [ConfigModule],
-            inject: [ConfigService],
-            useFactory: (configService: ConfigService) => {
-                const expiresIn = configService.get('JWT_EXPIRES_IN');
-                const secret = configService.get<string>('JWT_SECRET');
-                console.log({ secret })
-                return {
-                    secret: secret,
-                    signOptions: {
-                        expiresIn: expiresIn,
-                    },
-                };
-            },
-        }),
-    ],
-    providers: [AuthService, AuthGuard],
-    controllers: [AuthController],
-    exports: [AuthService, AuthGuard],
+  imports: [
+    UserModule,
+    ConfigModule,
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        const expiresIn = configService.get('JWT_EXPIRES_IN');
+        const secret = configService.get<string>('JWT_SECRET');
+        console.log({ secret });
+        return {
+          secret: secret,
+          signOptions: {
+            expiresIn: expiresIn,
+          },
+        };
+      },
+    }),
+  ],
+  providers: [AuthService, AuthGuard],
+  controllers: [AuthController],
+  exports: [AuthService, AuthGuard],
 })
-export class AuthModule { }
+export class AuthModule {}
