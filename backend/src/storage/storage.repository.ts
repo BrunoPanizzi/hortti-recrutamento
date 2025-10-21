@@ -5,6 +5,7 @@ import {
   GetObjectCommand,
   HeadBucketCommand,
   CreateBucketCommand,
+  PutBucketPolicyCommand,
 } from '@aws-sdk/client-s3';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -40,6 +41,7 @@ export class StorageRepository implements OnModuleInit {
 
   async onModuleInit() {
     await this.ensureBucketExists();
+    await this.setBucketPolicy();
   }
 
   private async ensureBucketExists(): Promise<void> {
@@ -65,6 +67,36 @@ export class StorageRepository implements OnModuleInit {
         this.logger.error(`Failed to check bucket: ${error.message}`);
         throw error;
       }
+    }
+  }
+
+  private async setBucketPolicy(): Promise<void> {
+    try {
+      const policy = {
+        Version: '2012-10-17',
+        Statement: [
+          {
+            Effect: 'Allow',
+            Principal: '*',
+            Action: ['s3:GetObject'],
+            Resource: [`arn:aws:s3:::${this.config.bucketName}/*`],
+          },
+        ],
+      };
+
+      await this.s3Client.send(
+        new PutBucketPolicyCommand({
+          Bucket: this.config.bucketName,
+          Policy: JSON.stringify(policy),
+        }),
+      );
+
+      this.logger.log(
+        `Bucket policy set successfully for "${this.config.bucketName}"`,
+      );
+    } catch (error) {
+      this.logger.error(`Failed to set bucket policy: ${error.message}`);
+      // Don't throw - allow the app to continue even if policy fails
     }
   }
 
