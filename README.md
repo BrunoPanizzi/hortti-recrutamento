@@ -1,3 +1,3 @@
-# Hortti Recrutamento - Template
+# Desafio técnico Hortti
 
-Template mínimo para o desafio. Veja o Forms para instruções completas.
+Essa é a minha solução para o desafio técnico da hortti, uma aplicação fullstack de cadastro e listagem de produtos, com autenticação JWT e upload de imagens.
