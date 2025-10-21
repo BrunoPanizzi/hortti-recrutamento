@@ -13,7 +13,6 @@ import {
   type FindAllParams,
 } from "~/services/client/ProductService";
 
-// Query key factory
 const productKeys = {
   all: ["products"] as const,
   lists: () => [...productKeys.all, "list"] as const,
@@ -22,7 +21,6 @@ const productKeys = {
   detail: (id: number) => [...productKeys.details(), id] as const,
 };
 
-// Hook to fetch all products
 export function useProducts(
   params?: FindAllParams,
   options?: Omit<UseQueryOptions<Product[], Error>, "queryKey" | "queryFn">
@@ -30,11 +28,12 @@ export function useProducts(
   return useQuery<Product[], Error>({
     queryKey: productKeys.list(params),
     queryFn: () => productService.findAll(params),
+    staleTime: 0,
+    gcTime: 0,
     ...options,
   });
 }
 
-// Hook to fetch a single product
 export function useProduct(
   id: number,
   options?: Omit<UseQueryOptions<Product, Error>, "queryKey" | "queryFn">
@@ -46,7 +45,6 @@ export function useProduct(
   });
 }
 
-// Hook to create a product
 export function useCreateProduct(
   options?: Omit<
     UseMutationOptions<
@@ -66,14 +64,12 @@ export function useCreateProduct(
   >({
     mutationFn: ({ payload, image }) => productService.create(payload, image),
     onSuccess: () => {
-      // Invalidate all product lists
       queryClient.invalidateQueries({ queryKey: productKeys.lists() });
     },
     ...options,
   });
 }
 
-// Hook to update a product
 export function useUpdateProduct(
   options?: Omit<
     UseMutationOptions<
@@ -94,7 +90,6 @@ export function useUpdateProduct(
     mutationFn: ({ id, payload, image }) =>
       productService.update(id, payload, image),
     onSuccess: (_, variables) => {
-      // Invalidate all product lists and the specific product detail
       queryClient.invalidateQueries({ queryKey: productKeys.lists() });
       queryClient.invalidateQueries({
         queryKey: productKeys.detail(variables.id),
@@ -104,7 +99,6 @@ export function useUpdateProduct(
   });
 }
 
-// Hook to delete a product
 export function useDeleteProduct(
   options?: Omit<UseMutationOptions<void, Error, number>, "mutationFn">
 ) {
@@ -113,7 +107,6 @@ export function useDeleteProduct(
   return useMutation<void, Error, number>({
     mutationFn: (id) => productService.remove(id),
     onSuccess: (_, id) => {
-      // Invalidate all product lists and remove the specific product from cache
       queryClient.invalidateQueries({ queryKey: productKeys.lists() });
       queryClient.removeQueries({ queryKey: productKeys.detail(id) });
     },

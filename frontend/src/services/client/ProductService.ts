@@ -1,9 +1,7 @@
 import { z } from "zod";
 
-// API Base URL
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
-// Zod Schemas
 const productSchema = z.object({
   id: z.number(),
   name: z.string(),
@@ -38,6 +36,8 @@ interface FindAllParams {
   limit?: number;
   search?: string;
   category?: string;
+  sortBy?: "name" | "price";
+  sortOrder?: "asc" | "desc";
 }
 
 class ProductService {
@@ -51,7 +51,6 @@ class ProductService {
   }
 
   async create(payload: CreateProductPayload, image?: File): Promise<Product> {
-    // Validate payload
     const validatedPayload = createProductPayloadSchema.parse(payload);
 
     const formData = new FormData();
@@ -95,6 +94,8 @@ class ProductService {
     if (params?.limit) queryParams.append("limit", params.limit.toString());
     if (params?.search) queryParams.append("search", params.search);
     if (params?.category) queryParams.append("category", params.category);
+    if (params?.sortBy) queryParams.append("sortBy", params.sortBy);
+    if (params?.sortOrder) queryParams.append("sortOrder", params.sortOrder);
 
     const response = await fetch(
       `${API_BASE_URL}/products?${queryParams.toString()}`,
@@ -133,7 +134,6 @@ class ProductService {
     payload: UpdateProductPayload,
     image?: File
   ): Promise<void> {
-    // Validate payload
     const validatedPayload = updateProductPayloadSchema.parse(payload);
 
     const formData = new FormData();
